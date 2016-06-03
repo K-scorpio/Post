@@ -9,12 +9,29 @@
 import Foundation
 
 class Post {
-    let username: String
-    let text: String
-    let timestamp: NSTimeInterval = NSTimeInterval()
-    let identifier: NSUUID = NSUUID()
     
-    init?() {
+    private let kText = "text"
+    private let kUsername = "username"
+    
+    var text: String
+    var username: String
+    var timestamp: NSTimeInterval = NSTimeInterval()
+    var identifier: NSUUID = NSUUID()
+    
+    init(username: String, text: String, timestamp: NSTimeInterval = NSTimeInterval(), identifier: NSUUID = NSUUID()) {
+        self.username = username
+        self.text = text
+        self.timestamp = timestamp
+        self.identifier = identifier
+    }
+    
+    init?(dictionary:[String: AnyObject]) {
+        guard let text = dictionary[kText] as? String,
+        username = dictionary[kUsername] as? String else {
+            return nil
+        }
+        self.text = text
+        self.username = username
         
     }
 }
